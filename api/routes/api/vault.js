@@ -38,29 +38,31 @@ router.get('/load-names', async (req, res) => {
 // route - POST api/vault/save-credentials
 // description -
 // access - Public
-router.post('/save-credentials', (req, res) => {
+router.post('/save-credentials', async (req, res) => {
   try {
-    // let search1 = Vault.findOne({ sitename: req.body.sitename, username: req.body.username });
+    let search1 = await Vault.findOne({ sitename: req.body.sitename, username: req.body.username });
 
-    // let search2 = Vault.findOne({ sitename: req.body.sitename, email: req.body.email });
+    let search2 = await Vault.findOne({ sitename: req.body.sitename, email: req.body.email });
 
-    // if (!(search1 || search2)) {
-    //   let vaultEntry = new Vault({
-    //     sitename: req.body.sitename,
-    //     username: req.body.username,
-    //     email: req.body.email,
-    //     password: req.body.password,
-    //     comment: req.body.comment,
-    //   });
+    // console.log('search1.length: ' + search1.length);
+    // console.log('search2.length: ' + search2.length);
 
-    //   vaultEntry.save();
+    if (!(search1 || search2)) {
+      let vaultEntry = new Vault({
+        sitename: req.body.sitename,
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        comment: req.body.comment,
+      });
 
-    //   res.status(200);
-    // } else {
-      console.log("sending 200;");
-      res.status(400).send('Server Error');
-      // res.status(200);
-    // }
+      vaultEntry.save();
+
+      res.status(200).send('Credential saved successfuly.');
+    } else {
+      console.log('sending 200;');
+      res.status(400).send('Server error. Credential already already exists.');
+    }
     //   console.log("req.boby.sitename: " + req.body.sitename);
     //   res.send(req.params);
   } catch (error) {
