@@ -67,13 +67,18 @@ export default class VaultSideMenuForm extends Component {
     return (
       <div>
         {this.state.showErrorMsg ? (
-          <Alert variant='danger' onClose={() => this.setState({ showErrorMsg: false })} dismissible>
+          <Alert className='mt-3' variant='danger' onClose={() => this.setState({ showErrorMsg: false })} dismissible>
             A credential with this site name and username/email already exist.
           </Alert>
         ) : null}
 
         {this.state.showSuccessMsg ? (
-          <Alert variant='success' onClose={() => this.setState({ showSuccessMsg: false })} dismissible>
+          <Alert
+            className='mt-3'
+            variant='success'
+            onClose={() => this.setState({ showSuccessMsg: false })}
+            dismissible
+          >
             Credential saved.
           </Alert>
         ) : null}
