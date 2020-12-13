@@ -5,16 +5,24 @@ import LoginPage from './components/login/LoginPage';
 import VaultApp from './components/vault/VaultApp';
 import './App.css';
 
+// Redux imports
+import { Provider } from 'react-redux';
+import store from './store';
+
 export default class App extends Component {
   render() {
     return (
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route exact path='/' component={LoginPage} />
-          <Route path='/vault-app' component={VaultApp} />
-        </Switch>
-      </Router>
+      <Fragment>
+        <Provider store={store}>
+          <Router>
+            <Navbar />
+            <Switch>
+              <Route exact path='/' component={LoginPage} />
+              <Route path='/vault-app' component={VaultApp} />
+            </Switch>
+          </Router>
+        </Provider>
+      </Fragment>
     );
   }
 }

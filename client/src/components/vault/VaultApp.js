@@ -14,15 +14,9 @@ export default class VaultApp extends Component {
     sidemenuIsOpen: true
   };
 
-  openNav = () => {
+  toggleSideMenu = () => {
     this.setState({
-      sidemenuIsOpen: true
-    });
-  };
-
-  closeNav = () => {
-    this.setState({
-      sidemenuIsOpen: false
+      sidemenuIsOpen: !this.state.sidemenuIsOpen
     });
   };
 
@@ -32,15 +26,15 @@ export default class VaultApp extends Component {
         <Container fluid>
           {this.state.sidemenuIsOpen ? (
             <Row>
-              <Col xs={12} md={5} lg={4} xl={3} id='sidemenu' className='py-5 border'>
+              <Col xs={12} md={5} lg={4} xl={3} id='sidemenu' className='pt-3 border'>
                 <VaultSideMenu />
               </Col>
 
-              <Col id='main'>
+              <Col id='main' className='pt-3'>
                 {this.state.sidemenuIsOpen ? (
-                  <i className='fas fa-arrow-left sidemenu-slider' onClick={this.closeNav} />
+                  <i className='fas fa-arrow-left sidemenu-slider' onClick={this.toggleSideMenu} />
                 ) : (
-                  <i className='fas fa-arrow-right sidemenu-slider' onClick={this.openNav} />
+                  <i className='fas fa-arrow-right sidemenu-slider' onClick={this.toggleSideMenu} />
                 )}
 
                 <Row className='justify-content-center'>
@@ -55,12 +49,12 @@ export default class VaultApp extends Component {
               </Col>
             </Row>
           ) : (
-            <Row id='main'>
+            <Row id='main' className='pt-3'>
               <Col xs={1}>
                 {this.state.sidemenuIsOpen ? (
-                  <i className='fas fa-arrow-left sidemenu-slider' onClick={this.closeNav} />
+                  <i className='fas fa-arrow-left sidemenu-slider' onClick={this.toggleSideMenu} />
                 ) : (
-                  <i className='fas fa-arrow-right sidemenu-slider' onClick={this.openNav} />
+                  <i className='fas fa-arrow-right sidemenu-slider' onClick={this.toggleSideMenu} />
                 )}
               </Col>
               <Col>
