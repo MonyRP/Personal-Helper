@@ -26,7 +26,7 @@ export default class VaultApp extends Component {
         <Container fluid>
           {this.state.sidemenuIsOpen ? (
             <Row>
-              <Col xs={12} md={5} lg={4} xl={3} id='sidemenu' className='pt-3 border'>
+              <Col xs={12} md={5} lg={4} xl={3} id='sidemenu' className='pt-3 pb-4 border'>
                 <VaultSideMenu />
               </Col>
 
@@ -37,36 +37,27 @@ export default class VaultApp extends Component {
                   <i className='fas fa-arrow-right sidemenu-slider' onClick={this.toggleSideMenu} />
                 )}
 
-                <Row className='justify-content-center'>
-                  <Col md={8} lg={5} xl={4}>
-                    {/* Route for link from sidebar to display account info */}
-                    <Route
-                      path='/vault/:site'
-                      render={(props) => <VaultMainWindow key={props.match.params.site} {...props} />}
-                    />
-                  </Col>
-                </Row>
+                {/* Route for link from sidebar to display account info */}
+                <Route
+                  path='/vault/:site'
+                  render={(props) => <VaultMainWindow key={props.match.params.site} {...props} />}
+                />
               </Col>
             </Row>
           ) : (
             <Row id='main' className='pt-3'>
-              <Col xs={1}>
+              <Col>
                 {this.state.sidemenuIsOpen ? (
                   <i className='fas fa-arrow-left sidemenu-slider' onClick={this.toggleSideMenu} />
                 ) : (
                   <i className='fas fa-arrow-right sidemenu-slider' onClick={this.toggleSideMenu} />
                 )}
-              </Col>
-              <Col>
-                <Row className='justify-content-center'>
-                  <Col xs={10} md={8} lg={5} xl={3}>
-                    {/* Route for link from sidebar to display account info */}
-                    <Route
-                      path='/vault/:site'
-                      render={(props) => <VaultMainWindow key={props.match.params.site} {...props} />}
-                    />
-                  </Col>
-                </Row>
+
+                {/* Route for link from sidebar to display account info */}
+                <Route
+                  path='/vault/:site'
+                  render={(props) => <VaultMainWindow key={props.match.params.site} {...props} />}
+                />
               </Col>
             </Row>
           )}

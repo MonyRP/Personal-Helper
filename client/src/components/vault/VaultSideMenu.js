@@ -62,12 +62,12 @@ export default class VaultSidemenu extends Component {
             {/* Find credentials list */}
             <Tab.Container id='find-credentials-list-group'>
               <ListGroup>
-                {this.state.listOfNames.map((siteName, index) => (
+                {this.state.listOfNames.map((element, index) => (
                   <ListGroup.Item key={index} className='d-flex justify-content-between align-items-center'>
-                    <Link to={`/vault/${siteName}`} className='text-dark'>
-                      {siteName}
+                    <Link to={`/vault/${element.siteName}`} className='text-dark'>
+                      {element.siteName}
                     </Link>
-                    <span className='badge badge-primary badge-pill'>0</span>
+                    <span className='badge badge-primary badge-pill'>{element.recordCount}</span>
                   </ListGroup.Item>
                 ))}
               </ListGroup>

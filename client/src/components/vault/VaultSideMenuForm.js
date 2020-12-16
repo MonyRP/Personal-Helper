@@ -20,7 +20,7 @@ export default class VaultSideMenuForm extends Component {
     e.preventDefault();
 
     const sitename = e.target.elements.sitename.value;
-    const username = e.target.elements.username.value;
+    const username = e.target.elements.username.value ? e.target.elements.username.value : 'N/A';
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
     const comment = e.target.elements.comment.value;
@@ -93,13 +93,7 @@ export default class VaultSideMenuForm extends Component {
           <div className='row justify-content-center'>
             <div className='form-group col-10'>
               <label htmlFor='username'>Username:</label>
-              <input
-                id='username'
-                className='form-control form-control-sm'
-                type='text'
-                placeholder='john.doe'
-                required
-              />
+              <input id='username' className='form-control form-control-sm' type='text' placeholder='john.doe' />
             </div>
           </div>
           <div className='row justify-content-center'>

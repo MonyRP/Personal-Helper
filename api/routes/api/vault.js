@@ -1,10 +1,11 @@
+const { json } = require('express');
 const express = require('express');
 const router = express.Router();
 
 const Vault = require('../../modules/vault');
 
 // route - GET api/vault/get-credentials
-// description -
+// description - gets credentials stored for website name
 // access - Public
 router.get('/get-credentials/:sitename', async (req, res) => {
   try {
@@ -18,25 +19,39 @@ router.get('/get-credentials/:sitename', async (req, res) => {
 });
 
 // route - GET api/vault/load-names
-// description -
+// description - gets website names and record counts for each website name
 // access - Public
 router.get('/load-names', async (req, res) => {
   try {
-    let siteNames = new Set();
+    let results = [];
+    let siteNamesSet = new Set();
+    let recordCounts = {};
+
     const credentials = await Vault.find({}, 'sitename');
 
     for (let i = 0; i < credentials.length; i++) {
-      siteNames.add(credentials[i].sitename);
+      siteNamesSet.add(credentials[i].sitename);
+      recordCounts[credentials[i].sitename] = (recordCounts[credentials[i].sitename] || 0) + 1;
     }
 
-    res.json(Array.from(siteNames));
+    let recordCountKeys = Object.keys(recordCounts);
+    let siteNamesArray = Array.from(siteNamesSet);
+
+    for (let i = 0; i < siteNamesArray.length; i++) {
+      results.push({
+        siteName: recordCountKeys[i],
+        recordCount: recordCounts[siteNamesArray[i]]
+      });
+    }
+
+    res.json(results);
   } catch (error) {
     console.log('/load-names: ' + error);
   }
 });
 
 // route - POST api/vault/save-credentials
-// description -
+// description - saves new credentials
 // access - Public
 router.post('/save-credentials', async (req, res) => {
   try {
@@ -53,7 +68,7 @@ router.post('/save-credentials', async (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
-        comment: req.body.comment,
+        comment: req.body.comment
       });
 
       vaultEntry.save();
